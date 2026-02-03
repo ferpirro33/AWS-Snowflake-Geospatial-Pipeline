@@ -1,22 +1,18 @@
-# Project: End-to-End Geospatial Data Pipeline: AWS & Snowflake Cloud Architecture
+# Project: Geospatial Data Pipeline (AWS & Snowflake)
 
-## Overview
-This project was originally developed as a final examination for the Next-Generation Databases module within the Master in Big Data Analytics at Universidad Europea de Valencia. It has been refined and containerized for full reproducibility within this portfolio.
+## Business Context
+This project was developed as a final examination for the Next-Generation Databases module of the Master’s in Big Data Analytics at Universidad Europea de Valencia. It demonstrates a high-scale cloud architecture designed to handle both structured and semi-structured geospatial data for urban analytics.
 
 The architecture demonstrates a hybrid cloud workflow, handling data extraction, SQL-based analytics in Athena, and advanced geospatial processing within Snowflake.
 
-## Setup & Installation
-To ensure environment isolation and prevent dependency conflicts, please follow these steps:
+## 🎯 Research Objectives
+The analysis processes diverse data formats to provide a 360-degree view of city listings:
 
-Virtual Environment: Create a dedicated Python environment using GitBash.
+CSV Files (Valencia & Madrid): Structured geolocation data, including IDs, coordinates, and market pricing.
 
-Dependencies: Install the required libraries by executing:
+GeoJSON Polygons: Semi-structured files defining specific urban perimeters and administrative boundaries.
 
-Bash
-pip install -r requirements.txt
-
-
-## Execution Workflow
+## 📊 Datasets Overview
 The complete development logic is documented in the Jupyter Notebook: pipeline_GeoJSON_AWS_Snow.ipynb.
 
 Data Sources
@@ -26,17 +22,18 @@ Valencia_data.csv & Madrid_data.csv: Global city geolocation and pricing data.
 
 Valencia_geojson.json & Madrid_geojson.json: GeoJSON polygons defining specific urban boundaries.
 
-## Core Pipeline Activities
-ETL & Data Cleaning: * Leveraged Python (Pandas) to parse and filter raw CSV files, extracting key features: id, latitude, longitude, and price.
+## 🛠️ Analytical Roadmap
+Data Engineering & Preparation: Initial ETL using Python to filter core features and optimize CSV structures for cloud ingestion.
 
-Serverless Analytics with AWS Athena: * Staged data in S3 and performed SQL analysis using Athena to identify high-value listings (>100 USD) and execute cross-city price correlations via JOIN operations.
+Serverless Querying: Utilizing AWS Athena to perform cross-city joins and identify pricing trends directly on S3.
 
-Snowflake Data Ingestion: * Architected an automated ingestion path from S3 to Snowflake.
+Warehouse Architecture: Designing Snowflake ingestion paths and utilizing the VARIANT data type for semi-structured GeoJSON handling.
 
-Data Optimization: * Implemented Snowflake Tasks to automate the creation of Transient Tables, applying business logic to isolate the top 90th percentile of high-priced listings.
+Task Automation: Implementing Snowflake Tasks and Transient Tables to automate the extraction of the top 90% most expensive listings.
 
-Semi-Structured Data Handling: * Ingested GeoJSON files into Snowflake using the VARIANT data type, enabling efficient JSON parsing.
+Geospatial Processing: Merging Python’s computational power with Snowflake to execute spatial filtering and distance calculations.
 
-Geospatial Analysis: * Integrated Python with Snowflake to perform spatial joins: * Filtering listings strictly located within GeoJSON boundaries. * Calculating Euclidean/Haversine distances from listings to the Valencia city center.
+Reverse ETL: Closing the loop by exporting processed insights from Snowflake back to AWS S3 for downstream consumption.
 
-Data Reverse ETL: * Final processed dataframes are written back to Snowflake directly from Python and subsequently exported to S3 for downstream consumption.
+## 💡 Business Impact & Recommendations
+The project provides a scalable template for any business requiring location-based intelligence. By automating the filtering of listings within specific geographic zones and calculating proximity to points of interest, the pipeline enables real estate and hospitality firms to make data-driven decisions on asset valuation and market expansion.
